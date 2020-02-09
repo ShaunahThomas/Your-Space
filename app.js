@@ -50,9 +50,9 @@ app.use(express.json());
 //   extended: true;
 // }));
 
-app.get('/api', (req, res) => {
-	res.send('Please use /api/spaces or /api/genres');
-});
+// app.get('/api', (req, res) => {
+// 	res.send('Please use /api/spaces or /api/genres');
+// });
 
 // app.get('/api/genres', (req, res) => {
 // 	Genre.getGenres((err, genres) => {
@@ -103,6 +103,7 @@ app.get('/api', (req, res) => {
 	});
 });
 
+
 // app.get('/', (req, res) => {
 // 	Space.getSpaceById(req.params._id, (err, space) => {
 // 		if(err){
@@ -120,7 +121,9 @@ app.post('/api', (req, res) => {
 			throw err;
 		}
 		res.json(space);
+	
 	});
+	
 });
 
 
