@@ -15,8 +15,12 @@ async function getData() {
   heading2.textContent = `Space Type`;
   const heading3 = document.createElement('th');
   heading3.textContent = `Provider`;
+  const heading4 = document.createElement('th');
+  heading4.textContent = `Phone`;
+  const heading5 = document.createElement('th');
+  heading5.textContent = `Image`;
   root.append(tr);
-  tr.append(heading, heading2, heading3);
+  tr.append(heading, heading2, heading3, heading4, heading5 );
 
 
   for (item of data) {
@@ -25,6 +29,8 @@ async function getData() {
     const spaceName = document.createElement('td');
     const spaceType = document.createElement('td');
     const provider = document.createElement('td');
+    const phone = document.createElement('td');
+    const image = document.createElement('img');
     // const geo = document.createElement('td');
     // const date = document.createElement('td');
    
@@ -33,6 +39,8 @@ async function getData() {
     spaceName.textContent = `${item.name}`;
     spaceType.textContent = `${item.spacetype}`;
     provider.textContent = `${item.provider}`;
+    phone.textContent = `${item.phone}`;
+    image.src = `${item.image}`;
     // geo.textContent = `${item.lat}°, ${item.lon}°`;
     // const dateString = new Date(item.timestamp).toLocaleString();
     // date.textContent = dateString;
@@ -42,7 +50,7 @@ async function getData() {
     // tr.appendChild(td);
     // table1.append(spaceName,spaceType, geo, date);
     root.append(tr1);
-    tr1.append(spaceName,spaceType, provider);
+    tr1.append(spaceName,spaceType, provider, phone, image);
     // document.body.append(root);
 
 

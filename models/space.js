@@ -12,7 +12,23 @@ const spaceSchema = mongoose.Schema({
 	},
 	provider:{
 		type: String
-	}
+	},
+	phone:{
+		type: String
+	// 	type: String,
+    // 	validate: {
+    //   validator: function(v) {
+    //     return /\d{3}-\d{3}-\d{4}/.test(v);
+    //   },
+    //   message: props => `${props.value} is not a valid phone number!`
+    // },
+    // required: [true, 'User phone number required']
+	  },
+	image: 
+		{ data: Buffer, contentType: String }
+	
+
+	
 });
 
 const Space = module.exports = mongoose.model('Space', spaceSchema);
@@ -38,7 +54,9 @@ module.exports.updateSpace = (id, space, options, callback) => {
 	var update = {
 		name: space.name,
 		spacetype: space.spacetype,
-		provider: space.provider
+		provider: space.provider,
+		phone: space.phone,
+		image: space.image
 
 	}
 	Space.findOneAndUpdate(query, update, options, callback);
