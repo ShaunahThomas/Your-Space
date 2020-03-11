@@ -2,8 +2,8 @@ getData();
 
 
 async function getData() {
-  
-  const response = await fetch('/api');
+
+  const response = await fetch('/spaces');
   const data = await response.json();
 
   const root = document.createElement('table');
@@ -18,7 +18,7 @@ async function getData() {
   const heading4 = document.createElement('th');
   heading4.textContent = `Phone`;
   const heading5 = document.createElement('th');
-  heading5.textContent = `Image`;
+  heading5.textContent = `avatar`;
   root.append(tr);
   tr.append(heading, heading2, heading3, heading4, heading5 );
 
@@ -30,27 +30,27 @@ async function getData() {
     const spaceType = document.createElement('td');
     const provider = document.createElement('td');
     const phone = document.createElement('td');
-    const image = document.createElement('img');
+    const avatar = document.createElement('img');
     // const geo = document.createElement('td');
     // const date = document.createElement('td');
-   
-    // const image = document.createElement('img');
+
+    // const avatar = document.createElement('img');
 
     spaceName.textContent = `${item.name}`;
     spaceType.textContent = `${item.spacetype}`;
     provider.textContent = `${item.provider}`;
     phone.textContent = `${item.phone}`;
-    image.src = `${item.image}`;
+    avatar.src = `${item.avatar}`;
     // geo.textContent = `${item.lat}°, ${item.lon}°`;
     // const dateString = new Date(item.timestamp).toLocaleString();
     // date.textContent = dateString;
-    // image.src = item.image64;
-    // image.alt = 'Dan Shiffman making silly faces.';
+    // avatar.src = item.avatar64;
+    // avatar.alt = 'Dan Shiffman making silly faces.';
 
     // tr.appendChild(td);
     // table1.append(spaceName,spaceType, geo, date);
     root.append(tr1);
-    tr1.append(spaceName,spaceType, provider, phone, image);
+    tr1.append(spaceName,spaceType, provider, phone, avatar);
     // document.body.append(root);
 
 

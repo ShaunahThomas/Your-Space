@@ -6,8 +6,12 @@
     <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script> -->
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
     <title>Document</title>
+
+
+
+
   </head>
   <body>
     <header id="headerfixed" class="clearfix">
@@ -55,7 +59,7 @@
           <br>
           <button id="submit">submit</button>
           <script src="sketch.js"></script>
-          
+
         </section> -->
         <!-- <section id="here">
           <p>hi</p>
@@ -87,25 +91,26 @@
             <input type="text" class="form-control"  placeholder="provider">
           </div> -->
 
-<!--          
+<!--
           <button type="submit" class="btn btn-default">Submit</button>
         </form> -->
         <!-- <div><a href="/">enter</a> | <a href="/logs">list</a></div> -->
         <!-- <script src="logs.js"></script> -->
-      
-      
-      
+
+
+
         <!-- <form method="POST" action="/api" > -->
-      <form id="spaceSubmit">
+      <form id="spaceSubmit" enctype="multipart/form-data" action="/spaces" method="post">
+        <div>
           <label>Name:<input type="text" name="name"  placeholder=" Enter name"required></label>
           <br>
           <label>spacetype:<input type="text" name="spacetype"  placeholder=" Enter spaceType" required></label>
           <br>
-          <label>Capacity:<br><textarea name="capacity"  placeholder=" Enter capacity"></textarea></label>
+          <label>Capacity:<br><input type="text" name="capacity"  placeholder=" Enter capacity"></label>
           <br>
           <label>provider:<br><input type="text" name="provider"  placeholder=" Enter provider"></label>
           <br>
-          <label>Phone number:<br><textarea name="phone"  placeholder=" Enter phone number"></textarea></label>
+          <label>Phone number:<br><input type="text" name="phone"  placeholder=" Enter phone number"></label>
           <br>
           <label>Address:<br><textarea name="address"  placeholder=" Enter address"></textarea></label>
           <br>
@@ -113,22 +118,42 @@
           <br>
           <label>End date:</label><input type="date" name="enddate">
           <br>
-          <label for="img">Select image:</label><input type="file" id="img" name="img" accept="image/*">
+          <label for="file">Select image:</label><input type="file" id="avatar" name="avatar" accept="image/*">
           <input type="submit" value="Submit" >
-          
+        </div>
       </form>
-      
+
       </section>
 
 
-      
+      <!-- <form action ="/new" method = "POST" enctype="multipart/form-data">
+        <input type="file" name="userPhoto" /><br/>
+    <label for="name">Name: </label>
+     <input type="text" name = "name" /><br/>
+    <label for="email">Email:</label>
+     <input type = "text" name = "email" /><br/>
+
+     <input type = "submit" />
+     </form> -->
+
+
+
+
+   </div>
+
+
 
       </article>
     </div>
 
-    
+
     <script src="./page_Script.js"></script>
-  
+
+
+
+
+
+
 </body>
 
 
