@@ -1,18 +1,80 @@
 getData();
-PopulateDropDownList();
+// PopulateDropDownList();
 
 // initMap();
 
 
 
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
 
+
+async function getData1() {
+      document.getElementById('tableStyle').remove();
+      getData()
+}
+
+// async function getQueryParams(){
+//     try{
+//         url = window.location.href;
+//         query_str = url.substr(url.indexOf('?')+1, url.length-1);
+//         r_params = query_str.split('&');
+//         params = {}
+//         for( i in r_params){
+//             param = r_params[i].split('=');
+//             params[ param[0] ] = param[1];
+//         }
+//         return params;
+//     }
+//     catch(e){
+//        return {};
+//     }
+// }
+
+// function getUrlVars1()
+// {
+//     var vars = [], hash;
+//     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+//     for(var i = 0; i < hashes.length; i++)
+//     {
+//         hash = hashes[i].split('=');
+//         vars.push(hash[0]);
+//         vars[hash[0]] = hash[1];
+//     }
+//     return vars;
+// }
+
+// var params = getUrlVars1();
+// // const response = await fetch('/location/'+locationSearchV);
+// for i in params{
+//   console.log(i);
+// }
 
 
 
 async function getData() {
 
-  const response = await fetch('/spaces');
-  const data = await response.json();
+
+    // var locationSearch = getUrlVars()["locationSearch"];
+    //     var capacitySearch = getUrlVars()["capacitySearch"];
+   // locationSearch = document.getElementById("locationSearch").value;
+   // capacitySearch = document.getElementById("capacitySearch").value;
+   // spaceTypeSearch = document.getElementById("spaceTypeSearch").value;
+
+  // const response = await fetch('/location/'+locationSearchV);
+
+
+const queryString = window.location.search;
+console.log(queryString);
+  // if (params){
+  //     const response = await fetch('/location'params);
+  // }
+
 
   const root = document.createElement('table');
   root.setAttribute("id", "tableStyle");
@@ -36,9 +98,21 @@ async function getData() {
 
 
 
+  const response = await fetch('/location'+queryString);
+const data = await response.json();
+  // var PATTERN = 'bedroom',
+  //     filtered = myArray.filter(function (str) { return str.includes(PATTERN); });
+
+  // const arr2 = data.filter(function (str) { return str.includes(locationSearch); });
+// filter by capacity
+  // const arr1 = data.filter(d => d.capacity >= capacitySearch );
+  // console.log('arr1', arr1);
+
   for (item of data) {
 
-
+    // if(${item.capacity}== 4){
+    //   console.log("this item");
+    // }
     // locationSearch = document.getElementById("locationSearch").value;
 
 
@@ -66,12 +140,13 @@ tr1.setAttribute("data-link", "./public/search0.html");
 tr1.setAttribute("data-value", `${item._id}` );
  tr1.setAttribute("onclick","myFunction((this).getAttribute('data-value'))" );
 
+
     spaceName.textContent = `${item.name}`;
     spaceType.textContent = `${item.spacetype}`;
     capacity.textContent = `${item.capacity}`;
     provider.textContent = `${item.provider}`;
     phone.textContent = `${item.phone}`;
-    price.textContent = `${item.price}`;
+    price.textContent = "£" + `${item.price}`;
     avatar.src = `${item.avatar}`;
 
 
@@ -101,37 +176,48 @@ tr1.setAttribute("data-value", `${item._id}` );
   }
 
   console.log(data);
+  // console.log(arr1);
+    // console.log(arr2);
 
 
 }
 
 
 
-async function PopulateDropDownList() {
-      const response = await fetch('/spaces');
-      const data = await response.json();
-   var ddlCustomers = document.getElementById("ddlCustomers");
-  for (var i = 0; i < data.length; i++) {
-    var option = document.createElement("OPTION");
-      option.innerHTML = data[i].spacetype;
-      option.value = data[i].spacetype;
-       ddlCustomers.options.add(option);
 
 
 
-  }
-}
+
+// async function PopulateDropDownList() {
+//       const response = await fetch('/spaces');
+//       const data = await response.json();
+//    var ddlCustomers = document.getElementById("ddlCustomers");
+//   for (var i = 0; i < data.length; i++) {
+//     var option = document.createElement("OPTION");
+//       option.innerHTML = data[i].spacetype;
+//       option.value = data[i].spacetype;
+//        ddlCustomers.options.add(option);
+//
+//
+//
+//   }
+// }
 async function myFunction(x) {
   // const response1 = await fetch('/spaces/'+ x);
   alert("value is: " + x);
     // alert("Row index is: " + x.rowIndex);
   // window.open("/spaces/" + x);
-
+  // window.open('/search2.html?locationSearch='+x);
   window.open('/singlespace?id='+x);
   // alert(this.cells[0].textContent );
   // alert("Row index is: " + x.rowIndex + x.name);
 
 }
+
+
+async function updateTextInput(val) {
+          document.getElementById('textInput').value=val;
+        }
 
 
 // async function locationSearch(x) {

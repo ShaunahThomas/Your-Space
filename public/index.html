@@ -7,6 +7,38 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script> -->
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"> -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPzXLRPUeM4Vfu3JL5I8llDzw-_CQSJY4&callback=initMap">
+    </script> -->
+
+    <style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+      height: 500px;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    /* html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    } */
+    /* #floating-panel {
+      position: absolute;
+      top: 10px;
+      left: 25%;
+      z-index: 5;
+      background-color: #fff;
+      padding: 5px;
+      border: 1px solid #999;
+      text-align: center;
+      font-family: 'Roboto','sans-serif';
+      line-height: 30px;
+      padding-left: 10px;
+    } */
+    </style>
     <title>Document</title>
 
 
@@ -104,25 +136,141 @@
         <div>
           <label>Name:<input type="text" name="name"  placeholder=" Enter name"required></label>
           <br>
-          <label>spacetype:<input type="text" name="spacetype"  placeholder=" Enter spaceType" required></label>
+            <!-- <input type="text" name="spacetype"  placeholder=" Enter spaceType" required> -->
+            <label>Space Type:
+              <!-- <input type="text" name="spacetype"  placeholder=" Enter spaceType" required> -->
+              <select name="spacetype" size="1" >
+                <option value="Other">Other</option>
+                  <option value="Counselling Room">Counselling Room</option>
+                  <option value="Computer Room">Computer Room</option>
+                  <option value="Classroom">Classroom</option>
+                  <option value="Meeting Space">Meeting Space</option>
+                  <option value="Studio">Studio</option>
+                  <option value="Dance Studio">Dance Studio</option>
+                  <option value="Hall">Hall</option>
+                  <option value="Conference Room">Conference Room</option>
+                  <option value="Office">Office</option>
+                  <option value="Sports Hall">Sports Hall</option>
+                  <option value="Training Room">Training Room</option>
+                  <option value="Workshop">Workshop</option>
+                  <option value="Shared Office">Shared Office</option>
+                  <option value="Function Space">Function Space</option>
+               </select>
+           </label>
           <br>
-          <label>Capacity:<br><input type="text" name="capacity"  placeholder=" Enter capacity"></label>
+              <br>
+          <label>Capacity:<br><input type="text" name="capacity"  placeholder=" Enter capacity"required></label>
           <br>
           <label>provider:<br><input type="text" name="provider"  placeholder=" Enter provider"></label>
           <br>
           <label>Phone number:<br><input type="text" name="phone"  placeholder=" Enter phone number"></label>
           <br>
-          <label>Address:<br><textarea name="address"  placeholder=" Enter address"></textarea></label>
+          <label>Address:<br>  <input type="text"   placeholder=" Enter address" id="location-input" class="form-control form-control-lg" onchange="geocode()">
+            <br></label>
+
+            <input readonly name="address" type="text" class="card-block" id="formatted-address" placeholder="Address is displayed here">
+            <!-- <div class="card-block" id="address-components">1</div> -->
+            <input readonly name="geometrylat" type="text" class="card-block" id="geometry-lat" placeholder="geometry lat is displayed here">
+            <input readonly name="geometrylng" type="text" class="card-block" id="geometry-lng" placeholder="geometry lng is displayed here">
+            <!-- <div name="geometry" class="card-block" id="geometry">2</div> -->
+            <!-- <div id="floating-panel">
+        <input id="address" type="textbox" value="portsmouth">
+        <input id="submit" type="button" value="Geocode">
+      </div> -->
+      <div id="map"></div>
           <br>
-          <label>Start date:</label><input type="date" name="startdate">
+          <label>Price:<br><input type="text" name="price"  placeholder=" Enter per hour"required></label>
           <br>
-          <label>End date:</label><input type="date" name="enddate">
+          <label>Description:<br><input type="text" name="description"  placeholder=" Enter a discription of the space"required></label>
+          <br>
+          <label>Start date:</label><input type="date" name="startdate"required>
+          <br>
+          <label>End date:</label><input type="date" name="enddate"required>
+          <br>
+          <label>Start time:</label><input type="time" name="starttime"required>
+          <br>
+          <label>End time:</label><input type="time" name="endtime"required>
           <br>
           <label for="file">Select image:</label><input type="file" id="avatar" name="avatar" accept="image/*">
           <input type="submit" value="Submit" >
         </div>
       </form>
+      <!-- <div class="container"> -->
+        <!-- <h2 id="text-center">Enter Location: </h2>
+        <form id="location-form">
+          <input type="text" id="location-input" class="form-control form-control-lg">
+          <br>
+          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form> -->
+        <!-- <div class="card-block" id="formatted-address">hi</div>
+        <div class="card-block" id="address-components">1</div>
+        <div class="card-block" id="geometry">2</div>
+      </div> -->
 
+      <!-- <script>
+        // Call Geocode
+        //geocode();
+
+        // Get location form
+        var locationForm = document.getElementById('location-form');
+
+        // Listen for submiot
+        locationForm.addEventListener('submit', geocode);
+
+        function geocode(e){
+          // Prevent actual submit
+          e.preventDefault();
+
+          var location = document.getElementById('location-input').value;
+
+          axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+            params:{
+              address:location,
+              key:'AIzaSyAQwo7_6QZRvTNIgeugv7z0XmQoQKuwgtc'
+            }
+          })
+          .then(function(response){
+            // Log full response
+            console.log(response);
+
+            // Formatted Address
+            var formattedAddress = response.data.results[0].formatted_address;
+            var formattedAddressOutput = `
+              <ul class="list-group">
+                <li class="list-group-item">${formattedAddress}</li>
+              </ul>
+            `;
+
+            // Address Components
+            var addressComponents = response.data.results[0].address_components;
+            var addressComponentsOutput = '<ul class="list-group">';
+            for(var i = 0;i < addressComponents.length;i++){
+              addressComponentsOutput += `
+                <li class="list-group-item"><strong>${addressComponents[i].types[0]}</strong>: ${addressComponents[i].long_name}</li>
+              `;
+            }
+            addressComponentsOutput += '</ul>';
+
+            // Geometry
+            var lat = response.data.results[0].geometry.location.lat;
+            var lng = response.data.results[0].geometry.location.lng;
+            var geometryOutput = `
+              <ul class="list-group">
+                <li class="list-group-item"><strong>Latitude</strong>: ${lat}</li>
+                <li class="list-group-item"><strong>Longitude</strong>: ${lng}</li>
+              </ul>
+            `;
+
+            // Output to app
+            document.getElementById('formatted-address').innerHTML = formattedAddressOutput;
+            document.getElementById('address-components').innerHTML = addressComponentsOutput;
+            document.getElementById('geometry').innerHTML = geometryOutput;
+          })
+          .catch(function(error){
+            console.log(error);
+          });
+        }
+      </script> -->
       </section>
 
 
@@ -136,7 +284,11 @@
      <input type = "submit" />
      </form> -->
 
-
+     <div id="floating-panel">
+ <input id="address" type="textbox" value="portsmouth">
+ <input id="submit" type="button" value="Geocode">
+</div>
+<div id="map"></div>
 
 
    </div>

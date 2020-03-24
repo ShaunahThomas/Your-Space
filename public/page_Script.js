@@ -1,58 +1,69 @@
-// document.querySelector('#spaceSubmit').addEventListener('submit', (e) => {
-//     const formData = new FormData(e.target);
-//     // Now you can use formData.get('foo'), for example.
-//     // Don't forget e.preventDefault() if you want to stop normal form .submission
-//
-//     var object = {};
-//     formData.forEach((value, key) => {object[key] = value});
-//     var json = JSON.stringify(object);
-//
-//     postData('/spaces', object).then((data) => {
-//         console.log(data); // JSON data parsed by `response.json()` call
-//       });;
-//   });
-//
-//   // Example POST method implementation:
-// async function postData(url = '', data = {}) {
-//     // Default options are marked with *
-//     const response = await fetch(url, {
-//       method: 'POST', // *GET, POST, PUT, DELETE, etc.
-//       mode: 'cors', // no-cors, *cors, same-origin
-//       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-//       credentials: 'same-origin', // include, *same-origin, omit
-//       headers: {
-//         'Content-Type': 'application/json',
-//         // 'Content-Type': 'image/png'
-//         // 'Content-Type': 'application/x-www-form-urlencoded',
-//       },
-//       redirect: 'follow', // manual, *follow, error
-//       referrerPolicy: 'no-referrer', // no-referrer, *client
-//       body: JSON.stringify(data) // body data type must match "Content-Type" header
-//     });
-//     return await response.json(); // parses JSON response into native JavaScript objects
-//   }
-//
-// //
-//
-//   document.querySelector('#spaceSubmit').addEventListener('change', event => {
-//     handleImageUpload(event)
-//   })
-//
-//
-//   const handleImageUpload = event => {
-//   const files = event.target.files
-//   const formData = new FormData()
-//   formData.append('avatar, files[0])
-//
-//   fetch('/spaces', {
-//     method: 'POST',
-//     body: formData
-//   })
-//   .then(response => response.json())
-//   .then(data => {
-//     console.log(data)
-//   })
-//   .catch(error => {
-//     console.error(error)
-//   })
-// }
+
+
+  // Get location form
+  var locationForm = document.getElementById('location-input');
+
+  // Listen for submiot
+  locationForm.addEventListener('change', geocode);
+
+  function geocode(e){
+    // Prevent actual submit
+    e.preventDefault();
+
+    var location = document.getElementById('location-input').value;
+
+    axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+      params:{
+        address:location,
+        key:'AIzaSyAQwo7_6QZRvTNIgeugv7z0XmQoQKuwgtc'
+      }
+    })
+    .then(function(response){
+      // Log full response
+      console.log(response);
+
+      // Formatted Address
+      var formattedAddress = response.data.results[0].formatted_address;
+      // var formattedAddressOutput = `
+      //   <ul class="list-group">
+      //     <li class="list-group-item">${formattedAddress}</li>
+      //   </ul>
+      // `;
+
+      // Address Components
+      var addressComponents = response.data.results[0].address_components;
+      var addressComponentsOutput = '<ul class="list-group">';
+      for(var i = 0;i < addressComponents.length;i++){
+        addressComponentsOutput += `
+          <li class="list-group-item"><strong>${addressComponents[i].types[0]}</strong>: ${addressComponents[i].long_name}</li>
+        `;
+      }
+      addressComponentsOutput += '</ul>';
+
+      // Geometry
+      var lat = response.data.results[0].geometry.location.lat;
+      var lng = response.data.results[0].geometry.location.lng;
+      // var geometryOutput = `
+      //   <ul class="list-group">
+      //     <li class="list-group-item"><strong>Latitude</strong>: ${lat}</li>
+      //     <li class="list-group-item"><strong>Longitude</strong>: ${lng}</li>
+      //   </ul>
+      // `;
+
+      // Output to app
+      document.getElementById('formatted-address').value = formattedAddress;
+      // document.getElementById('address-components').innerHTML = addressComponentsOutput;
+      document.getElementById('geometry-lat').value = lat;
+      document.getElementById('geometry-lng').value = lng;
+    })
+    .catch(function(error){
+      console.log(error);
+    });
+  }
+
+  document.getElementById('spaceSubmit').onkeypress = function(e) {
+    var key = e.charCode || e.keyCode || 0;
+    if (key == 13) {
+      e.preventDefault();
+    }
+  }

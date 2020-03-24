@@ -10,10 +10,49 @@ const spaceSchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
+	capacity:{
+		type: Number
+	},
 	provider:{
 		type: String
 	},
 	phone:{
+		type: String
+	},
+	address:{
+		type: String
+	},
+	geometrylat:{
+		type:Number
+	},
+	geometrylng:{
+		type:Number
+	},
+	// loc: {
+  //       type: {
+  //           type: String,
+  //           default: "Point"
+  //       },
+  //       coordinates: {
+  //           type: [Number]
+  //       }
+  //   },
+	price:{
+		type: Number
+	},
+	description:{
+		type: String
+	},
+	startdate:{
+		type: Date
+	},
+	enddate:{
+		type: Date
+	},
+	starttime:{
+		type: String
+	},
+	endtime:{
 		type: String
 	},
 	avatar:{
@@ -22,7 +61,7 @@ const spaceSchema = mongoose.Schema({
 
 
 });
-
+// spaceSchema.index({ loc: '2dsphere'});
  module.exports = mongoose.model('Space', spaceSchema);
 //
 // // Get Spaces

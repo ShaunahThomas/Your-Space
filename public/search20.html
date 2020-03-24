@@ -56,20 +56,42 @@
   	</header>
 
     <div class="wrapper">
-      <header id="headernamefixed">Search for a space</header>
+      <header id="headernamefixed">Search for a space 20</header>
       <article class="main" id="main1">
         <section class="search">
           <!-- <input type="button" id="btnGenerate" value="Populate DropDownList" onclick="PopulateDropDownList()" /> -->
               <!-- <input type="button" id="btnGenerate" value="Populate DropDownList"  /> -->
-              <form id="spaceSubmit">
-              <label>Location:<input id="locationSearch" type="text" name="locationSearch"  placeholder=" Enter location"required></label>
+              <form id="spaceSubmit"onsubmit="getData()" action="/location">
+              <!-- <label>Location:<input id="locationSearch" type="text" name="locationSearch"  placeholder=" Enter location"required value="portsmouth" ></label> -->
               <br>
-              <label>Capacity:<input id="capacitySearch" type="text" name="capacitySearch"  placeholder=" Enter capacity number" onchange="getData1()"required></label>
+              <label>Capacity:<input id="capacitySearch" type="text" name="capacitySearch"  placeholder=" Enter capacity number" required></label>
               <br>
 
-             <label>Space Type: <select id="ddlCustomers">
-             </select>
+             <!-- <label>Space Type: <select id="ddlCustomers">
+             </select> -->
 
+             <label>Space Type:
+               <!-- <input type="text" name="spacetype"  placeholder=" Enter spaceType" required> -->
+               <select  id="spaceTypeSearch" name="spaceTypeSearch" size="1"  >
+                  <option disabled selected value> -- select an option -- </option>
+                  <option value="Other">Other</option>
+                   <option value="Counselling Room">Counselling Room</option>
+                   <option value="Computer Room">Computer Room</option>
+                   <option value="Classroom">Classroom</option>
+                   <option value="Meeting Space">Meeting Space</option>
+                   <option value="Studio">Studio</option>
+                   <option value="Dance Studio">Dance Studio</option>
+                   <option value="Hall">Hall</option>
+                   <option value="Conference Room">Conference Room</option>
+                   <option value="Office">Office</option>
+                   <option value="Sports Hall">Sports Hall</option>
+                   <option value="Training Room">Training Room</option>
+                   <option value="Workshop">Workshop</option>
+                   <option value="Shared Office">Shared Office</option>
+                   <option value="Function Space">Function Space</option>
+                </select>
+            </label>
+                      <input type="submit" value="Submit" >
               </form>
 
 
@@ -116,7 +138,7 @@
 
 
 
-   <script src="/logs/logs1.js"></script>
+   <script src="/logs/logs2.js"></script>
 
    <!-- <script
    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPzXLRPUeM4Vfu3JL5I8llDzw-_CQSJY4&callback=initMap">
