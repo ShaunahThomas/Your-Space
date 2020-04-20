@@ -22,21 +22,15 @@ const spaceSchema = mongoose.Schema({
 	address:{
 		type: String
 	},
+	place:{
+	type: String
+	},
 	geometrylat:{
 		type:Number
 	},
 	geometrylng:{
 		type:Number
 	},
-	// loc: {
-  //       type: {
-  //           type: String,
-  //           default: "Point"
-  //       },
-  //       coordinates: {
-  //           type: [Number]
-  //       }
-  //   },
 	price:{
 		type: Number
 	},

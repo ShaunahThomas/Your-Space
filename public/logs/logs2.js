@@ -99,7 +99,8 @@ console.log(queryString);
 
 
   const response = await fetch('/location'+queryString);
-const data = await response.json();
+
+  const data = await response.json();
   // var PATTERN = 'bedroom',
   //     filtered = myArray.filter(function (str) { return str.includes(PATTERN); });
 
@@ -108,13 +109,62 @@ const data = await response.json();
   // const arr1 = data.filter(d => d.capacity >= capacitySearch );
   // console.log('arr1', arr1);
 
+  // if data.length == 0 then {}
+  // if (!array.isArray(data) || !array.length) {
+  //   console.log("no item");
+  // }
+  if (!data || !data.length) {
+    // array or array.length are falsy
+    // ⇒ do not attempt to process array
+      console.log("no item");
+
+      const tr1 = document.createElement('tr');
+      const link = document.createElement('a');
+      const spaceName = document.createElement('td');
+      const spaceType = document.createElement('td');
+      const capacity = document.createElement('td');
+      const provider = document.createElement('td');
+      const phone = document.createElement('td');
+      const price = document.createElement('td');
+      const avatar = document.createElement('img');
+
+      root.append(tr1);
+      // tr1.append(link)
+      tr1.append(spaceName,spaceType, capacity,provider, phone,price, avatar);
+
+      spaceName.textContent = "No Results Found";
+      // spaceType.textContent = "" ;
+      // capacity.textContent = "" ;
+      // provider.textContent ="" ;
+      // phone.textContent = "";
+      // price.textContent = "" + "";
+      avatar.src = "";
+
+
+
+
+      var theDiv = document.getElementById("result");
+      // var content = document.createTextNode("<YOUR_CONTENT>");
+      theDiv.appendChild(root);
+
+
+
+}
+
+
+  // const maxval = Math.max.apply(Math, data.map(function(o) { return o.price; }))
+  // console.log(maxval)
+  // // $("myForm").attr("action" ,MY_CONSTANT + "/myroute" );
+  // // $("priceSearch").setAttribute("max",maxval);
+  //   document.getElementById('priceSearch').setAttribute("max",maxval);
+
+
   for (item of data) {
 
     // if(${item.capacity}== 4){
     //   console.log("this item");
     // }
     // locationSearch = document.getElementById("locationSearch").value;
-
 
 
 

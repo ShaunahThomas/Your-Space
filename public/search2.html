@@ -47,7 +47,7 @@
   				</label>
   				<input type="checkbox" id="open">
   				<nav>
-            <a href="search.html">Search for a Space</a>
+            <a href="search2.html">Search for a Space</a>
   					<a href="index.html">Add a Space</a>
   					<a href="account.html">Account</a>
   					<a href="contactus.html">Contact Us</a>
@@ -62,7 +62,7 @@
         <section class="search">
           <!-- <input type="button" id="btnGenerate" value="Populate DropDownList" onclick="PopulateDropDownList()" /> -->
               <!-- <input type="button" id="btnGenerate" value="Populate DropDownList"  /> -->
-              <form id="spaceSubmit"onsubmit="getData()" action="/searchedspace">
+              <form class="spaceSubmit" onsubmit="getData()" action="/searchedspace">
               <label>Location:<input id="locationSearch" type="text" name="locationSearch"  placeholder=" Enter location"required value="portsmouth" ></label>
               <br>
               <label>Capacity:<input id="capacitySearch" type="text" name="capacitySearch"  placeholder=" Enter capacity number" required></label>
@@ -92,7 +92,7 @@
                    <option value="Function Space">Function Space</option>
                 </select>
             </label>
-             <label>Price:<input type="text" name="priceSearch" id="textInput" value="0"> <input id="priceSearch" class="slider" type="range" min="1" max="100" onchange="updateTextInput(this.value);"></label>
+             <label>Price:<input type="text" name="priceSearch" id="textInput" value="0"> <input id="priceSearch" class="slider" type="range" min="/spaceprice" onchange="updateTextInput(this.value);"></label>
                       <input type="submit" value="Submit" >
               </form>
 
@@ -140,7 +140,7 @@
 
 
 
-   <script src="/logs/logs2.js"></script>
+   <script src="/logs/logspage.js"></script>
 
    <!-- <script
    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPzXLRPUeM4Vfu3JL5I8llDzw-_CQSJY4&callback=initMap">

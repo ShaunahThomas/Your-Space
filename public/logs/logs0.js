@@ -49,7 +49,7 @@ async function getData() {
 
 
     const lat = document.createElement('p');
-
+    const lng = document.createElement('p');
 
     const price = document.createElement('p');
     const description = document.createElement('p');
@@ -77,7 +77,7 @@ async function getData() {
     photo.append(avatar);
 
     descriptionStyle.setAttribute("class", "description");
-    descriptionStyle.append(spaceType, capacity, provider, phone, address, lat, price, description, startdate, enddate, starttime, endtime);
+    descriptionStyle.append(spaceType, capacity, provider, phone, address, lat, lng, price, description, startdate, enddate, starttime, endtime);
 
 
     spaceName.textContent = `Space Name: ${data.name}`;
@@ -86,7 +86,8 @@ async function getData() {
     provider.textContent = `Provider: ${data.provider}`;
     phone.textContent = `Phone: ${data.phone}`;
     address.textContent = `Address: ${data.address}`;
-    address.textContent = `lat: ${data.geometrylat}`;
+    lat.textContent = `lat: ${data.geometrylat}`;
+    lng.textContent = `lng: ${data.geometrylng}`;
     price.textContent = `Price: £${data.price}`;
     description.textContent = `Description: ${data.description}`;
     startdate.textContent = `Start Date: ${data.startdate}`;

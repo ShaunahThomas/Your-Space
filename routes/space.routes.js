@@ -33,6 +33,9 @@ const upload = require('../middleware/upload.js')
   // Retrieve all Spaces
   app.get('/spaces', spaces.getSpaces);
 
+  // Retrieve price value Spaces
+  app.get('/spaceprice', spaces.getSpacesPriceValue);
+
     // Retrieve spacesbypage
     app.get('/spacespage',spaces.paginatedResults(Space), spaces.getSpacesPage);
 

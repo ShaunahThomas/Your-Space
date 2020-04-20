@@ -19,6 +19,7 @@ exports.addSpace = (req, res, next) => {
         provider: req.body.provider,
         phone: req.body.phone,
         address: req.body.address,
+        place: req.body.place,
         geometrylat: req.body.geometrylat,
         geometrylng: req.body.geometrylng,
         price: req.body.price,
@@ -97,6 +98,24 @@ exports.getSpaces= (req, res) => {
         });
     });
 };
+
+exports.getSpacesPriceValue= (req, res) => {
+    Space.find()
+    .then(spaces => {
+      const maxval = Math.max.apply(Math, Space.map(function(o) { return o.price; }))
+      console.log(maxval)
+      // $("myForm").attr("action" ,MY_CONSTANT + "/myroute" );
+      // $("priceSearch").setAttribute("max",maxval);
+
+        res.send(maxval);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Something wrong while retrieving spaces."
+        });
+    });
+};
+
+
 
 
 //Testing pagination
@@ -304,7 +323,7 @@ exports.removeSpace = (req, res) => {
 exports.getSearchedSpace = (req, res) =>{
   // res.sendFile(__dirname + '/../public/index.html')
    // res.sendFile('public/index.html', { root: __dirname });
-   res.sendFile(path.resolve('public/search2.html'));
+   res.sendFile(path.resolve('public/searchpage.html'));
 };
 
 
@@ -360,9 +379,9 @@ exports.getLocationSpaces= (req, res) => {
   if(req.query){
     console.log(req.query);
   }
-  // if (req.query.locationSearch) {
-  //     query.address = req.query.locationSearch;
-  // }
+  if (req.query.locationSearch) {
+      query.place = req.query.locationSearch;
+  }
 
   if (req.query.capacitySearch) {
         // capacity: {$gte:capacitySearch}
