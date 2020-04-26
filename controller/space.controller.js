@@ -363,7 +363,6 @@ exports.getLocationSpaces= (req, res) => {
       });
   }
   let locationSearch = req.query.locationSearch
-
   let capacitySearch = req.query.capacitySearch
   let spaceTypeSearch = req.query.spaceTypeSearch
   let priceSearch = req.query.priceSearch
@@ -382,12 +381,10 @@ exports.getLocationSpaces= (req, res) => {
   if (req.query.locationSearch) {
       query.place = req.query.locationSearch;
   }
-
   if (req.query.capacitySearch) {
         // capacity: {$gte:capacitySearch}
           query.capacity = {$gte:capacitySearch}
   }
-
   if (req.query.spaceTypeSearch) {
        // spacetype: {$eq: spaceTypeSearch}
        query.spacetype = {$eq: spaceTypeSearch}

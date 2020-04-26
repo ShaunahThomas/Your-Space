@@ -1,6 +1,10 @@
 getData();
 searchData();
 var placeArray = [];
+var placeMarker = [];
+
+  console.log(placeMarker);
+
 // PopulateDropDownList();
 
 
@@ -115,9 +119,18 @@ async function getData() {
     var theDiv = document.getElementById("result");
     theDiv.appendChild(root);
 
+    placeMarker.push({
+        "title" : `${item.name}`,
+        "lat" : parseFloat(`${item.geometrylat}`),
+        "lng"  : parseFloat(`${item.geometrylng}`),
+        "description" : `${item.provider}`
+    });
+
   }
-  console.log(data);
+  // console.log(data);
+       // LoadMap();
 }
+  console.log(placeMarker);
 
 // async function PopulateDropDownList() {
 //       const response = await fetch('/spaces');
@@ -255,3 +268,118 @@ document.addEventListener("click", function (e) {
 }
 
 autocomplete(document.getElementById("locationSearch"), placeArray);
+
+
+
+// var placeMarker = {
+//     latLng: []
+// };
+//
+// for(var i in someData) {
+//
+//     var item = someData[i];
+//
+//     placeMarker.latLng.push({
+//         "latV" : `${data.geometrylat}`,
+//         "lngV"  : `${data.geometrylng}`
+//     });
+// }
+
+
+var map;
+     function initMap() {
+       map = new google.maps.Map(document.getElementById('map'), {
+         zoom: 8,
+         center: new google.maps.LatLng(51,-1),
+         mapTypeId: 'terrain'
+       });
+             for (item of placeMarker){
+                var latVal = `${item.latV}`;
+                var lngVal = `${item.lngV}`;
+                var marker = new google.maps.Marker({position: {lat: latVal, lng: lngVal} , map: map});
+              }
+
+       // var latVal = `${data.geometrylat}`;
+       // var lngVal = `${data.geometrylng}`;
+       // var marker = new google.maps.Marker({position: {lat: latVal, lng: lngVal} , map: map});
+
+}
+
+// var obj = { 'France': 'Paris', 'England': 'London' };
+// Iterate over the property names:
+// for (let key of Object.keys(placeMarker)) {
+//     var lat1 = placeMarker[key];
+//     console.log(key, lat1);
+//        // var marker = new google.maps.Marker({position: {lat: latVal, lng: lngVal} , map: map});
+// }
+
+// for (const [key, lat1] of Object.entries(placeMarker))
+//     console.log(key, lat1);
+
+// console.log(placeMarker);
+
+
+// function addmarker(){
+//       for (item of placeMarker){
+//          var latVal = `${item.latV}`;
+//          var lngVal = `${item.lngV}`;
+//          var marker = new google.maps.Marker({position: {lat: latVal, lng: lngVal} , map: map});
+//        }
+//      }
+//
+// addmarker();
+//
+
+// var marker, i;
+// for (i = 0; i < placeMarker.length; i++) {
+//   marker = new google.maps.Marker({
+//     position: new google.maps.LatLng({lat: i.latVal, lng: i.lngVal} ),
+//     map: map
+//   });
+// }
+// window.onload = function () {
+  // console.log(placeMarker);
+
+ // }
+
+// function LoadMap() {
+//   console.log(placeMarker);
+//
+//
+//             if ( !placeMarker.length){
+//                center = new google.maps.LatLng(50.1, -1);
+//             }
+//               var center = new google.maps.LatLng({lat: placeMarker[0].lat, lng: placeMarker[0].lng});
+//
+//         var mapOptions = {
+//             center: center,
+//             zoom: 4,
+//             mapTypeId: google.maps.MapTypeId.ROADMAP
+//         };
+//         var infoWindow = new google.maps.InfoWindow();
+//         var latlngbounds = new google.maps.LatLngBounds();
+//         var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+//
+//         for (var i = 0; i < placeMarker.length; i++) {
+//             if ( isNaN(placeMarker[i].lng) || isNaN(placeMarker[i].lat)){
+//               i++;
+//             }
+//             var data = placeMarker[i]
+//             var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+//             var marker = new google.maps.Marker({
+//                 position: myLatlng,
+//                 map: map,
+//                 title: data.title
+//             });
+//             (function (marker, data) {
+//                 google.maps.event.addListener(marker, "click", function (e) {
+//                     infoWindow.setContent("<div style = 'width:200px;min-height:40px'>" + data.description + "</div>");
+//                     infoWindow.open(map, marker);
+//                 });
+//             })(marker, data);
+//             latlngbounds.extend(marker.position);
+//         }
+//         var bounds = new google.maps.LatLngBounds();
+//         map.setCenter(latlngbounds.getCenter());
+//         map.fitBounds(latlngbounds);
+//     }
