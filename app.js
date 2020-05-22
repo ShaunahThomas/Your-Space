@@ -1,49 +1,45 @@
-var multer  =   require('multer');
-// var express = require('express');
-var http = require('http');
-// var path = require('path');
-// var mongoose = require('mongoose');
-// var app = express();
-// var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
-// const {ObjectID} = require("mongodb");
-
-
-
-
-
-
-
-
 // get dependencies
+var multer  =   require('multer');
+var http = require('http');
+var methodOverride = require('method-override');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
-app.use(express.static(__dirname+'/public'));
 
+
+app.use(express.static(__dirname+'/public'));
 
 // parse requests
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //Enable CORS for all HTTP methods
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+//     next();
+//   });
+
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    return res.status(200).json({});
+  }
+  next();
+});
+
 
 // Configuring the database
 const config = require('./config.js');
 const mongoose = require('mongoose');
-require('./routes/space.routes.js')(app);
-// require('./routes/photo.routes.js')(app);
-
-app.use('/uploads', express.static('uploads'))
-// app.use('/success', express.static('public'))
-
 
 mongoose.Promise = global.Promise;
 
@@ -57,93 +53,27 @@ mongoose.connect(config.url, {
     process.exit();
 });
 
+//Routes to handle requests
+require('./routes/user.js')(app);
+require('./routes/space.routes.js')(app);
+// const spaceRoutes = require('./routes/space.routes.js')
+// const userRoutes = require('./routes/user');
+// require('./routes/user.js')(app);
+
+// app.use("/user", userRoutes);
+app.use('/uploads', express.static('uploads'))
+// app.use('/success', express.static('public'))
+
+
 // default route
 app.get('/', (req, res) => {
-    res.json({"message": "Welcome to ZeptoBook Product app"});
+    res.json({"message": "Welcome to Your Space"});
 });
 
 // // listen on port 3000
 // app.listen(config.serverport, () => {
 //     console.log("Server is listening on port 3000");
 // });
-
-
-
-
-
-
-
-
-
-
-
-
-// app.use(bodyParser());
-// app.use(methodOverride());
-// //app.use(app.router);
-// app.use(express.static(path.join(__dirname,'public')));
-
-// mongoose.connect('mongodb://localhost/test');
-
-// var mySchema = new mongoose.Schema({
-//     _id : String,
-//     name: String,
-//     email : String
-// });
-//
-// var user = mongoose.model('face',mySchema);
-//
-// app.post('/new',function(req,res){
-//     upload(req,res,function(err) {
-//         if(err) {
-//             return res.end("Error uploading file.");
-//         }
-//             new user({
-//              _id   :  new ObjectID(),
-//              name : req.body.name,
-//              email : req.body.email
-//            }).save(function(err,doc){
-//               if(err) res.json(err);
-//               else    res.send('Successfully inserted!');
-//            });
-//     });
-//
-//
-// });
-// var storage =   multer.diskStorage({
-//   destination: function (req, file, callback) {
-//     callback(null, './uploads');
-//   },
-//   filename: function (req, file, callback) {
-//     callback(null, file.originalname);
-//   }
-// });
-// var upload = multer({ storage : storage}).single('userPhoto');
-// app.get('/',function(req,res){
-//       res.sendFile(__dirname + "/index.html");
-// });
-// listen on port 3000
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

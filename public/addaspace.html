@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+    <title>Document</title>
+
+
+
+
+  </head>
+  <body>
+    <header id="headerfixed" class="clearfix">
+      <div class="container">
+  			<div class="header-left">
+  				<img id="logo" alt="WEBF1 Logo" src="/image/logo.png"/>
+  			</div>
+  			<div class="header-right">
+  				<label for="open">
+  					<span class="hidden-desktop"></span>
+  				</label>
+  				<input type="checkbox" id="open">
+          <nav>
+            <a href="index.html">Search for a Space</a>
+  					<a href="addaspace.html">Add a Space</a>
+  					<a href="account.html">Account</a>
+  					<a href="contactus.html">Contact Us</a>
+  				</nav>
+  			</div>
+  		</div>
+  	</header>
+
+    <div class="wrapper">
+      <header id="headernamefixed">Search for a space</header>
+      <article class="main" id="main1">
+
+        <section>
+        <!-- <form method="POST" action="/api" > -->
+      <form class="spaceSubmit" id="spaceSubmit" enctype="multipart/form-data" action="/spaces" method="post">
+
+        <div id="formStyle">
+          <p>Add a Space</p>
+          <label>Name:<input type="text" name="name"  placeholder=" Enter name"required></label>
+          <br>
+            <!-- <input type="text" name="spacetype"  placeholder=" Enter spaceType" required> -->
+            <label>Space Type:
+              <!-- <input type="text" name="spacetype"  placeholder=" Enter spaceType" required> -->
+              <select name="spacetype" size="1" >
+                <option value="Other">Other</option>
+                  <option value="Counselling Room">Counselling Room</option>
+                  <option value="Computer Room">Computer Room</option>
+                  <option value="Classroom">Classroom</option>
+                  <option value="Meeting Space">Meeting Space</option>
+                  <option value="Studio">Studio</option>
+                  <option value="Dance Studio">Dance Studio</option>
+                  <option value="Hall">Hall</option>
+                  <option value="Conference Room">Conference Room</option>
+                  <option value="Office">Office</option>
+                  <option value="Sports Hall">Sports Hall</option>
+                  <option value="Training Room">Training Room</option>
+                  <option value="Workshop">Workshop</option>
+                  <option value="Shared Office">Shared Office</option>
+                  <option value="Function Space">Function Space</option>
+               </select>
+           </label>
+          <br>
+              <br>
+          <label>Capacity:<br><input type="text" name="capacity"  placeholder=" Enter capacity"required></label>
+          <br>
+          <label>provider:<br><input type="text" name="provider"  placeholder=" Enter provider"></label>
+          <br>
+          <label>Phone number:<br><input type="text" name="phone"  placeholder=" Enter phone number"></label>
+          <br>
+          <label>Address:<br>  <input type="text"   placeholder=" Enter address" id="location-input" class="form-control form-control-lg" onchange="geocode()">
+            <br></label>
+
+            <input readonly name="address" type="text" class="card-block" id="formatted-address" placeholder="Address is displayed here">
+            <!-- <div class="card-block" id="address-components">1</div> -->
+            <input readonly name="geometrylat" type="text" class="card-block" id="geometry-lat" placeholder="geometry lat is displayed here">
+            <input readonly name="geometrylng" type="text" class="card-block" id="geometry-lng" placeholder="geometry lng is displayed here">
+            <!-- <input readonly name="place" type="text" class="card-block" id="administrative_area_level_2_type" placeholder="place is displayed here"> -->
+              <!-- <input readonly name="place" type="text" class="card-block" id="administrative_area_level_2" placeholder="place is displayed here"> -->
+                            <input readonly name="place" type="text" class="card-block" id="place" placeholder="place is displayed here">
+            <!-- <div name="geometry" class="card-block" id="geometry">2</div> -->
+            <!-- <div id="floating-panel">
+        <input id="address" type="textbox" value="portsmouth">
+        <input id="submit" type="button" value="Geocode">
+      </div> -->
+      <div id="map"></div>
+          <br>
+          <label>Price:<br><input type="text" name="price"  placeholder=" Enter per hour"required></label>
+          <br>
+          <label>Description:<br><input type="text" name="description"  placeholder=" Enter a discription of the space"required></label>
+          <br>
+          <label>Start date:</label><input type="date" name="startdate"required>
+          <br>
+          <label>End date:</label><input type="date" name="enddate"required>
+          <br>
+          <label>Start time:</label><input type="time" name="starttime"required>
+          <br>
+          <label>End time:</label><input type="time" name="endtime"required>
+          <br>
+          <label for="file">Select image:</label><input type="file" id="avatar" name="avatar" accept="image/*">
+          <input type="submit" value="Submit" >
+        </div>
+      </form>
+
+      </section>
+
+      </article>
+    </div>
+    <script src="./page_Script.js"></script>
+
+</body>
+
+
+
+</html>
